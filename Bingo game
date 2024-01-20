@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class BingoGame {
+    public static void main(String[] args) {
+        int[][] grid = new int[5][5];
+        Random random = new Random();
+
+        // Populate the grid with random numbers
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (i == 2 && j == 2) {
+                    // Set the center of the grid to 0 (represents free space)
+                    grid[i][j] = 0;
+                } else {
+                    // Generate a random number between 1 and 75
+                    int num;
+                    do {
+                        num = random.nextInt(75) + 1;
+                    } while (isNumberExists(grid, num)); // Ensure the number is unique
+                    grid[i][j] = num;
+                }
+            }
+        }
+
+        // Print the grid
+        System.out.println("B    I    N    G    O");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("%-4d", grid[j][i]);
+            }
+            System.out.println();
+        }
+    }
+
+    // Helper method to check if a number already exists in the grid
+    private static boolean isNumberExists(int[][] grid, int num) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (grid[i][j] == num) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
